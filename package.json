@@ -1,0 +1,19 @@
+{
+  "name": "rest-web-service",
+  "version": "1.0.0",
+  "description": "REST Web Service Design",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adihendro/REST-Web-Service.git"
+  },
+  "author": "adi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adihendro/REST-Web-Service/issues"
+  },
+  "homepage": "https://github.com/adihendro/REST-Web-Service#readme"
+}
