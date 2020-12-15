@@ -26,7 +26,7 @@ router.get('/:gameid', async (req, res) => {
     if(resultFav.rows != ''){
       res.json(resultFav.rows);
     }else{
-      res.json("No result found");
+      res.json("No result found", 404);
     }
   } catch (err) {
     console.error(err.message);
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
     // console.log(gameData);
     const insertFav = await pool.query('INSERT INTO favourites (name, released, rating) VALUES ($1,$2,$3)',
     [gameData[0],gameData[1],gameData[2]]);
-    res.json("Favourite game added");
+    res.json("Favourite game added", 201);
     // res.json(insertFav.rows);
   } catch (err) {
       console.error(err.message);
@@ -53,11 +53,15 @@ router.post('/', async (req, res) => {
 router.put('/:gameid', async (req, res) => {
   try {
     const { gameid } = req.params;
-    // console.log(req.body);
     const gameData = [req.body.name, req.body.released, req.body.rating];
-    const updateFav = await pool.query('UPDATE favourites SET name=$1, released=$2, rating=$3 WHERE gameid = $4',
-      [gameData[0],gameData[1],gameData[2],gameid]);
-    res.json("Favourite game updated");
+    const updateFav = await pool.query('UPDATE favourites SET name=$1, released=$2, rating=$3 WHERE gameid = $4 RETURNING *',
+    [gameData[0],gameData[1],gameData[2],gameid]);
+    // console.log(updateFav.rows);
+    if(updateFav.rows != ''){
+      res.json("Favourite game updated");
+    }else{
+      res.json("No such game found", 404);
+    }
   } catch (err) {
     console.error(err.message);
   }
@@ -68,9 +72,13 @@ router.delete('/:gameid', async (req, res) => {
   try {
     const { gameid } = req.params;
     // console.log(req.body);
-    const deleteFav = await pool.query('DELETE FROM favourites WHERE gameid = $1',
+    const deleteFav = await pool.query('DELETE FROM favourites WHERE gameid = $1 RETURNING *',
       [gameid]);
-    res.json("Favourite game deleted");
+    if(deleteFav.rows != ''){
+      res.json("Favourite game deleted");
+    }else{
+      res.json("No such game found", 404);
+    }
   } catch (err) {
     console.error(err.message);
   }
