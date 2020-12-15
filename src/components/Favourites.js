@@ -38,7 +38,8 @@ const Favourites = () => {
     // console.log(fav);
 
     return (
-    <Fragment>
+        <Fragment>
+        <a href="https://rest-web-service.herokuapp.com/logout" className="btn btn-outline-danger">Log Out</a>
         <br />
         <h1>Favourite Video Games List</h1>
         <table class="table mt-5 text-center">
