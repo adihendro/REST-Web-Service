@@ -64,7 +64,7 @@ app.get('/logout', (req, res) => {
   req.session = null;
   name=null;
   req.logout();
-  res.redirect('/');
+  res.redirect('https://rest-video-games.herokuapp.com/');
 });
 
 
