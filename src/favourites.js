@@ -21,8 +21,8 @@ router.get('/', async (req, res) => {
 router.get('/:gameid', async (req, res) => {
   try {
     console.log(req.params);
-    const { id } = req.params;
-    const resultFav = await pool.query('SELECT * FROM favourites WHERE gameid = $1', [id]);
+    const { gameid } = req.params;
+    const resultFav = await pool.query('SELECT * FROM favourites WHERE gameid = $1', [gameid]);
     res.json(resultFav.rows);
   } catch (err) {
     console.error(err.message);
