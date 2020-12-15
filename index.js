@@ -16,8 +16,8 @@ require('./passport');
 
 
 //requiring models
-const favouritesRoutes = require('./src/routes/favourites');
-const gamesRoutes = require('./src/routes/games');
+const favouritesRoutes = require('./src/favourites');
+const gamesRoutes = require('./src/games');
 
 //Routes
 app.use("/favourites", favouritesRoutes);
@@ -48,8 +48,6 @@ app.use(cookieSession({
 
 var name=null;
 app.get('/user', isLoggedIn, (req, res) => {
-  // console.log("asfda "+name);
-
   res.send(`Welcome ${name}!`)
 });
 
