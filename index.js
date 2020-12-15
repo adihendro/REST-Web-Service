@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 
 //requiring models
-const favouritesRoutes = require('./favourites');
-const gamesRoutes = require('./games');
+const favouritesRoutes = require('./src/routes/favourites');
+const gamesRoutes = require('./src/routes/games');
 
 //Routes
 app.use("/favourites", favouritesRoutes);
