@@ -1,9 +1,11 @@
 //requiring modules
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 const pool = require('./db');
 
 router.use(express.json());
+router.use(cors());
 
 //Get all favourites
 router.get('/', async (req, res) => {
