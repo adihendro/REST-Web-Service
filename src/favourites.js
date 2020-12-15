@@ -33,10 +33,10 @@ router.get('/:gameid', async (req, res) => {
 //Post favourites
 router.post('/', async (req, res) => {
   try {
-    const gameData = [req.body.gameid, req.body.name, req.body.released, req.body.rating];
+    const gameData = [req.body.name, req.body.released, req.body.rating];
 
-    const insertFav = await pool.query('INSERT INTO favourites VALUES ($1,$2,$3,$4)',
-    [gameData[0],gameData[1],gameData[2],gameData[3]]);
+    const insertFav = await pool.query('INSERT INTO favourites VALUES ($1,$2,$3)',
+    [gameData[0],gameData[1],gameData[2]]);
     res.json(insertFav.rows);
   } catch (err) {
       console.error(err.message);
