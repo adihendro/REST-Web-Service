@@ -20,10 +20,14 @@ router.get('/', async (req, res) => {
 //Get specific favourites
 router.get('/:gameid', async (req, res) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const { gameid } = req.params;
     const resultFav = await pool.query('SELECT * FROM favourites WHERE gameid = $1', [gameid]);
-    res.json(resultFav.rows);
+    if(resultFav.rows != ''){
+      res.json(resultFav.rows);
+    }else{
+      res.json("No result found");
+    }
   } catch (err) {
     console.error(err.message);
   }
