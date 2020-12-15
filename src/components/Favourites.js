@@ -1,42 +1,56 @@
-import React, { Fragment, useState } from 'react';
-var axios = require("axios").default;
+import React, { Fragment, useEffect, useState } from 'react';
+// var axios = require("axios").default;
 
-const Favourites = () => {
+const ShowFav = () => {
 
-    const [username, setFavourites] = useState("");
-    const id = 463;
-    const games = 84;
+    const [fav, setFav] = useState([]);
 
+    const getFav = async () => {
+        try {
+            const response = await fetch("https://rest-web-service.herokuapp.com/favourites")
+            const favData = await response.json();
+            console.log(favData);
+            setFav(favData);
 
-    const onSubmitForm = async (e) => {
-        e.preventDefault();
-
-        axios.post('https://rest-video-games.herokuapp.com/favourites',{
-            id: id,
-            username: username,
-            games: games
-        })
-        .then(res => {
-            console.log(res);
-        }, (err) => {
+        } catch (err) {
             console.error(err.message);
-        });
-
-        window.location = '/';
+        }
     }
 
-    
-    return (
-        <Fragment>
-        <h1 className="text-center mt-5">My fav</h1>
-        <form className="d-flex mt-5" onSubmit={onSubmitForm}>
-            <input type="text" className="form-control" value={username} 
-            onChange ={e => setFavourites(e.target.value)} />
-            <button className="btn btn-success">Add</button>
-        </form>
-    </Fragment>
-    )
+    useEffect(()=>{
+        getFav();
+    }, []);
 
+    // console.log(fav);
+    return (<Fragment>
+        
+        <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Game ID</th>
+            <th>Name</th>
+            <th>Released</th>
+            <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {fav.map(fav => (
+            <tr>
+                <td>{fav.gameid}</td>
+                <td>{fav.name}</td>
+                <td>{fav.released}</td>
+                <td>{fav.rating}</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+        ))}
+        
+        </tbody>
+    </table>
+
+  </Fragment>);
 };
 
-export default Favourites;
+
+export default ShowFav;
