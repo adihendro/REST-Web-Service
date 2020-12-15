@@ -9,9 +9,9 @@ router.use(express.json());
 router.get('/', async (req, res) => {
     try {
     //   const client = await pool.connect();
-      const {resultGames} = await pool.query('SELECT * FROM games');
+      const resultGames = await pool.query('SELECT * FROM games');
       // const results = { 'rabc': (result) ? result.rows : null};
-      res.send(resultGames.rows);
+      res.json(resultGames.rows);
       // res.render('pages/db', results );
     //   client.release();
     } catch (err) {
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
         // var image = req.body.image;
         // var rating = req.body.rating;
 
-        const {insertGames} = await pool.query('INSERT INTO games VALUES ($1,$2,$3,$4,$5)',
+        const insertGames = await pool.query('INSERT INTO games VALUES ($1,$2,$3,$4,$5)',
         [gameData[0],gameData[1],gameData[2],gameData[3],gameData[4]]);
         // const results = { 'rabc': (result) ? result.rows : null};
         res.json(insertGames.rows);

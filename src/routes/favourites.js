@@ -32,6 +32,22 @@ router.get('/:id', async (req, res) => {
 })
 
 
+//Post favourites
+router.post('/', async (req, res) => {
+  try {
+    const id = req.body.id;
+    const username = req.body.username;
+    const games = req.body.games;
+
+      const insertFav = await pool.query('INSERT INTO favourites VALUES ($1,$2,$3)',
+      [id, username, games]);
+      res.json(insertFav.rows);
+  } catch (err) {
+      console.error(err.message);
+  }
+})
+
+
 //Update specific favourites
 router.put('/:id', async (req, res) => {
   try {

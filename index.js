@@ -11,10 +11,10 @@ app.use("/favourites", favouritesRoutes);
 app.use("/games", gamesRoutes);
 
 
-app.get('/',  (req, res) => {
-  res.send('Hello World')
-  // res.render("index")
-});
+// app.get('/',  (req, res) => {
+//   res.send('Hello World')
+//   // res.render("index")
+// });
 
 
 // Port
