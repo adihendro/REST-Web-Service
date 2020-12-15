@@ -1,13 +1,12 @@
 //requiring modules
 const express = require('express');
-const router = express.Router();
 const app = express();
 
 //requiring models
 const favouritesRoutes = require('./favourites');
 const gamesRoutes = require('./games');
 
-//Add Routes
+//Routes
 app.use("/favourites", favouritesRoutes);
 app.use("/games", gamesRoutes);
 

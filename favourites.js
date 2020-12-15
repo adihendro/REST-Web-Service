@@ -3,16 +3,58 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./db');
 
-// app.use(express.json());
+router.use(express.json());
 
+//Get all favourites
 router.get('/', async (req, res) => {
   try {
     // const client = await pool.connect();
-    const result = await pool.query('SELECT * FROM favourites');
+    const resultFav = await pool.query('SELECT * FROM favourites');
     // const results = { 'rabc': (result) ? result.rows : null};
-    res.json(result.rows);
+    res.json(resultFav.rows);
     // res.render('pages/db', results );
     // client.release();
+  } catch (err) {
+    console.error(err.message);
+  }
+})
+
+//Get specific favourites
+router.get('/:id', async (req, res) => {
+  try {
+    console.log(req.params);
+    const { id } = req.params;
+    const resultFav = await pool.query('SELECT * FROM favourites WHERE id = $1', [id]);
+    res.json(resultFav.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+})
+
+
+//Update specific favourites
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(req.body);
+    const { games } = req.body;
+    const updateFav = await pool.query('UPDATE favourites SET games = $1 WHERE id = $2',
+      [games, id]);
+    res.json("Favourites updated");
+  } catch (err) {
+    console.error(err.message);
+  }
+})
+
+//Delete specific favourites
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(req.body);
+    // const { games } = req.body;
+    const deleteFav = await pool.query('DELETE FROM favourites WHERE id = $1',
+      [id]);
+    res.json("Favourites deleted");
   } catch (err) {
     console.error(err.message);
   }

@@ -1,6 +1,6 @@
 //requiring modules
 const express = require('express');
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const router = express.Router();
 const pool = require('./db');
 
@@ -9,14 +9,15 @@ router.use(express.json());
 router.get('/', async (req, res) => {
     try {
     //   const client = await pool.connect();
-      const result = await pool.query('SELECT * FROM games');
+      const {resultGames} = await pool.query('SELECT * FROM games');
       // const results = { 'rabc': (result) ? result.rows : null};
-      res.send(result.rows);
+      res.send(resultGames.rows);
       // res.render('pages/db', results );
-      client.release();
+    //   client.release();
     } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
+        console.error(err.message);
+    //   console.error(err);
+    //   res.send("Error " + err);
     }
   })
 
@@ -28,12 +29,11 @@ router.post('/', async (req, res) => {
         // var released = req.body.released;
         // var image = req.body.image;
         // var rating = req.body.rating;
-        // console.log("AAAA "+gameData);
 
-        const insert = await pool.query('INSERT INTO games VALUES ($1,$2,$3,$4,$5)',
+        const {insertGames} = await pool.query('INSERT INTO games VALUES ($1,$2,$3,$4,$5)',
         [gameData[0],gameData[1],gameData[2],gameData[3],gameData[4]]);
         // const results = { 'rabc': (result) ? result.rows : null};
-        res.json(insert.rows);
+        res.json(insertGames.rows);
         // res.render('pages/db', results );
         // client.release();
     } catch (err) {
