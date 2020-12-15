@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 
-class AddFav extends Component{
+class EditFav extends Component{
   addFav(newFav){
     axios.request({
       method:'POST',
@@ -51,4 +51,4 @@ class AddFav extends Component{
   }
 }
 
-export default AddFav;
+export default EditFav;

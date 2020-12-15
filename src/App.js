@@ -7,7 +7,7 @@ import './App.css';
 import Home from './components/Home';
 import Favourites from './components/Favourites';
 import EditFav from './components/EditFav';
-import Favv from './components/Favv';
+// import Favv from './components/Favv';
 
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/favourites" component={Favourites} />
           <Route path="/favourites/edit" component={EditFav} />
-          <Route path="/showfav" component={Favv} />
+          {/* <Route path="/showfav" component={Favv} /> */}
           {/* <div className="container"> */}
             
         </div>

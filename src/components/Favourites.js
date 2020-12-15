@@ -58,7 +58,7 @@ const Favourites = () => {
                 <td>{fav.name}</td>
                 <td>{fav.released.substring(0,10)}</td>
                 <td>{fav.rating}</td>
-                <td><a href="http://localhost:3000/favourites/edit/" className="btn btn-warning">Edit</a></td>
+                <td><a href="https://rest-web-service.herokuapp.com/favourites/edit/" className="btn btn-warning">Edit</a></td>
                 <td><button className="btn btn-danger" 
                 onClick={() => deleteFav(fav.gameid)}>Delete</button></td>
             </tr>
