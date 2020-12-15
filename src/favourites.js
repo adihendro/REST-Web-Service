@@ -34,10 +34,11 @@ router.get('/:gameid', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const gameData = [req.body.name, req.body.released, req.body.rating];
-
-    const insertFav = await pool.query('INSERT INTO favourites VALUES ($1,$2,$3)',
+    // console.log(gameData);
+    const insertFav = await pool.query('INSERT INTO favourites (name, released, rating) VALUES ($1,$2,$3)',
     [gameData[0],gameData[1],gameData[2]]);
-    res.json(insertFav.rows);
+    res.json("Favourite game added");
+    // res.json(insertFav.rows);
   } catch (err) {
       console.error(err.message);
   }
@@ -50,7 +51,7 @@ router.put('/:gameid', async (req, res) => {
     const { gameid } = req.params;
     // console.log(req.body);
     const gameData = [req.body.name, req.body.released, req.body.rating];
-    const updateFav = await pool.query('UPDATE favourites SET name=$1, released=$2, rating=$3 WHERE id = $4',
+    const updateFav = await pool.query('UPDATE favourites SET name=$1, released=$2, rating=$3 WHERE gameid = $4',
       [gameData[0],gameData[1],gameData[2],gameid]);
     res.json("Favourite game updated");
   } catch (err) {
